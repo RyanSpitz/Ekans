@@ -18,25 +18,25 @@ class snake:
     vel = 5
 
     def snakeMove(self):
-        if dir == "UP":
+        if self.dir == "UP":
             self.y -= self.vel
             if self.y == 0:
                 self.y = screenSize
 
-        elif dir == "DOWN":
+        elif self.dir == "DOWN":
             self.y += self.vel
             if self.y == screenSize:
                 self.y = 0
 
-        elif dir == "RIGHT":
+        elif self.dir == "RIGHT":
             self.x += self.vel
-            if snake.x == screenSize:
-                snake.x = 0
-
-        elif dir == "LEFT":
-            self.x -= self.vel
             if snake.x == 0:
                 snake.x = screenSize
+
+        elif self.dir == "LEFT":
+            self.x -= self.vel
+            if snake.x == screenSize:
+                snake.x = 0
 
 
 player = snake()
@@ -46,6 +46,7 @@ def reDrawGameWindow():
     player.snakeMove()
     pygame.draw.rect(display, (0, 255,0), [player.x, player.y, player.width, player.height])
     pygame.display.update()
+    print(player.y)
 
 running = True
 # Game loop
