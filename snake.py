@@ -75,7 +75,8 @@ while running:
             player.dir = "UP"
 
     elif keys[pygame.K_DOWN]:
-        if player.dir == ("LEFT" or "RIGHT")
+        if player.dir == ("LEFT" or "RIGHT"):
+            player.dir = "DOWN"
 
     reDrawGameWindow()
 
