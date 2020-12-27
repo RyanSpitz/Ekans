@@ -30,13 +30,13 @@ class snake:
 
         elif self.dir == "RIGHT":
             self.x += self.vel
-            if snake.x == 0:
-                snake.x = screenSize
+            if self.x == screenSize:
+                self.x = 0
 
         elif self.dir == "LEFT":
             self.x -= self.vel
-            if snake.x == screenSize:
-                snake.x = 0
+            if self.x == 0:
+                self.x = screenSize
 
 
 player = snake()
@@ -46,7 +46,7 @@ def reDrawGameWindow():
     player.snakeMove()
     pygame.draw.rect(display, (0, 255,0), [player.x, player.y, player.width, player.height])
     pygame.display.update()
-    print(player.y)
+    print(player.x, player.y)
 
 running = True
 # Game loop
@@ -63,16 +63,19 @@ while running:
 
     # This part handles controls for the snake
     if keys[pygame.K_LEFT]:
-        player.dir = "LEFT"
+        if player.dir == ("UP" or "DOWN"):
+            player.dir = "LEFT"
 
     elif keys[pygame.K_RIGHT]:
-        player.dir = "RIGHT"
+        if player.dir == ("UP" or "DOWN"):
+            player.dir = "RIGHT"
     
     elif keys[pygame.K_UP]:
-        player.dir = "UP"
+        if player.dir == ("LEFT" or "RIGHT"):
+            player.dir = "UP"
 
     elif keys[pygame.K_DOWN]:
-        player.dir = "DOWN"
+        if player.dir == ("LEFT" or "RIGHT")
 
     reDrawGameWindow()
 
