@@ -17,66 +17,61 @@ class snake:
     size = 1
     vel = 5
 
-    def snakeMove(self):
-        if self.dir == "UP":
-            self.y -= self.vel
-            if self.y == 0:
-                self.y = screenSize
+# Handles movement
+    def moveRight(self):
+        self.x += self.vel
+        if self.x == screenSize:
+            self.x = 0
 
-        elif self.dir == "DOWN":
-            self.y += self.vel
-            if self.y == screenSize:
-                self.y = 0
+    def moveLeft(self):
+        self.x -= self.vel
+        if self.x == 0:
+            self.x = screenSize
 
-        elif self.dir == "RIGHT":
-            self.x += self.vel
-            if self.x == screenSize:
-                self.x = 0
+    def moveUp(self):
+        self.y -= self.vel
+        if self.y == 0:
+            self.y = screenSize
 
-        elif self.dir == "LEFT":
-            self.x -= self.vel
-            if self.x == 0:
-                self.x = screenSize
+    def moveDown(self):
+        self.y += self.vel
+        if self.y == screenSize:
+            self.y = 0
 
-
-player = snake()
 
 def reDrawGameWindow():
+    # Draws black background
     display.fill((0,0,0))
-    player.snakeMove()
     pygame.draw.rect(display, (0, 255,0), [player.x, player.y, player.width, player.height])
     pygame.display.update()
-    print(player.x, player.y)
+
+player = snake()
 
 running = True
 # Game loop
 while running:
-    pygame.time.delay(25) # Delay 25 miliseconds
+    pygame.time.delay(50)
 
-    for event in pygame.event.get():
-        # Checks for quit command
-        if event.type == pygame.QUIT:
-            running = False
-    
-    # Dictionary of key presses
+    pygame.event.pump()
     keys = pygame.key.get_pressed()
 
-    # This part handles controls for the snake
-    if keys[pygame.K_LEFT]:
-        if player.dir == ("UP" or "DOWN"):
-            player.dir = "LEFT"
+    # Check for keyboard events
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-    elif keys[pygame.K_RIGHT]:
-        if player.dir == ("UP" or "DOWN"):
-            player.dir = "RIGHT"
-    
-    elif keys[pygame.K_UP]:
-        if player.dir == ("LEFT" or "RIGHT"):
-            player.dir = "UP"
+    if (keys[pygame.K_RIGHT]):
+        player.moveRight()
 
-    elif keys[pygame.K_DOWN]:
-        if player.dir == ("LEFT" or "RIGHT"):
-            player.dir = "DOWN"
+    if (keys[pygame.K_LEFT]):
+        player.moveLeft()
+
+    if (keys[pygame.K_UP]):
+        player.moveUp()
+
+    if (keys[pygame.K_DOWN]):
+        player.moveDown()
+
 
     reDrawGameWindow()
 
